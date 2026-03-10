@@ -12,7 +12,6 @@ data_analytic_project/
 │
 ├── README.md
 ├── order_prediction/
-│
 └── max_stock_test/
 Each subdirectory contains a complete analytical project including code, methodology, and results.
 
@@ -34,7 +33,7 @@ Accurate order predictions help reduce:
   It provides also clues to use by supply chain analysis to detect potential non regular orders.
 
 ➡️ See full project:  
-`/order_prediction`
+`[this](order_prediction/README.md)`
 
 ---
 
