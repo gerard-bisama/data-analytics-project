@@ -9,7 +9,6 @@ The projects are inspired by real-world challenges faced in **health logistics s
 ## Repository Structure
 
 data_analytic_project/
-│
 ├── README.md
 ├── order_prediction/
 └── max_stock_test/
@@ -33,7 +32,7 @@ Accurate order predictions help reduce:
   It provides also clues to use by supply chain analysis to detect potential non regular orders.
 
 ➡️ See full project:  
-`[this](order_prediction/README.md)`
+[this](order_prediction/README.md)
 
 ---
 
