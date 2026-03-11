@@ -8,15 +8,22 @@ The projects are inspired by real-world challenges faced in **health logistics s
 
 ## Repository Structure
 
+```
 data_analytic_project/
 │
 ├── README.md
 │
+├── data_extraction/
+|
 ├── order_prediction/
 │
 ├── max_stock_test/
+```
 
 Each subdirectory contains a complete analytical project including code, methodology, and results.
+
+> [!NOTE]
+> In the real case scenario, before conducting the analytical and modeling work, the required data must be extracted from the operational database or system. The [data_extraction](data_extraction/README.md) sub-repository show the process of data extraction.
 
 ---
 
@@ -63,7 +70,7 @@ Facilities supplied up to 5 months of stock are **not less likely** to experienc
 Facilities supplied up to 5 months of stock are **less likely** to experience stock-outs.
 
 ➡️ See full project:  
-`/max_stock_test`
+[max_stock_test](max_stock_test/README.md)
 
 ---
 
