@@ -35,7 +35,7 @@ The relevant data is distributed across multiple tables, including:
 | `dosage_units` | Product dosage unit classification |
 
 Because the analysis requires information from multiple tables, a **database view** was created to simplify data extraction.
-To view the ERD diagram for more details here is the ![schema](images/database_diag.png)
+To view the ERD diagram for more details here is the ![schema](../images/database_diag.png)
 
 ```SQL
 CREATE OR REPLACE VIEW public.vw_requisition_detail_with_raison AS

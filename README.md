@@ -23,7 +23,7 @@ data_analytic_project/
 Each subdirectory contains a complete analytical project including code, methodology, and results.
 
 > [!NOTE]
-> In the real case scenario, before conducting the analytical and modeling work, the required data must be extracted from the operational database or system. The [data_extraction](../data_extraction/README.md) sub-repository show the process of data extraction.
+> In the real case scenario, before conducting the analytical and modeling work, the required data must be extracted from the operational database or system. The [data_extraction](data_extraction/README.md) sub-repository show the process of data extraction.
 
 ---
 
