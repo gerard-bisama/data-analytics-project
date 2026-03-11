@@ -134,7 +134,7 @@ The view includes information such as:
 - stock-out indicators
 - product classification
 
-## This approach simplifies data extraction by avoiding repeated complex joins during analysis.
+This approach simplifies data extraction by avoiding repeated complex joins during analysis.
 
 ## Batch Data Extraction Strategy
 
