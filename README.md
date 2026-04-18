@@ -1,4 +1,4 @@
-# Data Analytics Projects – Public Health Supply Chain
+# Data Analytics Projects – PMalaria Supply Chain Data Analysis Project
 
 This repository contains data analytics and machine learning projects focused on improving **supply chain decision-making for health commodities**.
 
@@ -49,10 +49,12 @@ Each subdirectory contains a complete analytical project including code, methodo
 
 > [!NOTE]
 > In the real case scenario, before conducting the analytical and modeling work, the required data must be extracted from the operational database or system. The [data_extraction](data_extraction/README.md) sub-repository show the process of data extraction.
+> [!NOTE]
+> For every type of analysis there is a need a preliminary inspection of the data in order to understand key data variable descriptions and ensure the information provided is suitable for generating clear and meaningfull insights [data_cleaning](data_cleaning/README.md) sub-repository show the process of data extraction.
 
 ---
 
-# Project 1 – Quantities Requested vs Approved Quantity Analysis
+# Project 1 – Requested vs Approved Quantity Analysis
 
 📁 Directory: **approval_quantity_test/**
 
@@ -67,11 +69,13 @@ The goal is to statistically test whether maintaining a **the quantity requested
 ## Analytical Question
 
 Hypothesis tested:
+
 **H₀ (Null Hypothesis)**  
 There is **no significant difference** between the quantities requested by facilities and the quantities approved at the national level.
 
 **H₁ (Alternative Hypothesis)**  
 There **is a significant difference** between the quantities requested by facilities and the quantities approved at the national level.
+
 ➡️ See full project:  
 [approval_quantity_test](approval_quantity_test/README.md)
 
@@ -126,6 +130,7 @@ Facilities supplied up to 5 months of stock are **less likely** to experience st
 # Data dictionnary
 
 The dataset used in this repository is a synthetic dataset generated using a statistical generative model trained on the structure of the original operational data. The synthetic dataset preserves the statistical properties and relationships of the original data while ensuring that no real facility or operational record can be reconstructed.
+
 The dataset contains:
 x rows – each row represents a different requisition
 xx columns
