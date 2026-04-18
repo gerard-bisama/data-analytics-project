@@ -12,7 +12,7 @@ The objective of this project is to:
 - Build a foundation for advanced analytics and predictive modeling
 
 ➡️ See full analysis details on notebook file:  
-[Data Preparation](Data Preparation.ipynb)
+[Data Preparation](Data%20Preparation.ipynb)
 
 ---
 
