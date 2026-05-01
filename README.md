@@ -54,6 +54,29 @@ Each subdirectory contains a complete analytical project including code, methodo
 
 ---
 
+# Project 0: Exploratory Data Analysis
+
+📁 Directory: **eda/**
+
+## Objective
+
+This section presents an exploratory data analysis (EDA) of the malaria supply chain dataset, focusing on inventory patterns across multiple variables of the dataset. The analysis highlights key statistical characteristics such as distribution, variability, and outlier behavior, and links them to underlying supply chain dynamics.
+These insights provide a critical foundation for subsequent work, including A/B testing of supply policies and the development of machine learning models aimed at improving demand forecasting, stock optimization, and decision-making within the health supply chain system.
+
+## Key activities
+
+- Data completeness and reporting quality
+- Outlier and imbalance detection
+- Consumption and demand patterns
+- Stock position and stock adequacy
+- Order and allocation behavior
+- Machine learning features preparation
+
+➡️ See full project:  
+[approval_quantity_test](eda/README.md)
+
+---
+
 # Project 1 – Requested vs Approved Quantity Analysis
 
 📁 Directory: **approval_quantity_test/**
