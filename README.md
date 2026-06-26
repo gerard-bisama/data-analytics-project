@@ -73,7 +73,7 @@ These insights provide a critical foundation for subsequent work, including A/B 
 - Machine learning features preparation
 
 ➡️ See full project:  
-[approval_quantity_test](eda/README.md)
+[Exploratory data analysis](eda/README.md)
 
 ---
 
@@ -85,7 +85,7 @@ These insights provide a critical foundation for subsequent work, including A/B 
 
 This project analyzes whether the **quantities of malaria commodities requested by health facilities differ significantly from the quantities approved at the national level**.
 
-In many public health supply chains, facilities submit requisitions based on their reported consumption and stock status. However, the quantities approved during the national validation process differ due to factors such as stock availability and lack of respect of directive shared to the facilities.
+In many public health supply chains, facilities submit requisitions based on their reported consumption and stock status. However, the quantities approved during the national validation process differ due to factors such as stock availability and lack of respect of directive shared to the facilities. The team claims that there is still significant difference between the quantities requested by facilities and the quantities approved for every product regardless of the facility types.
 
 The goal is to statistically test whether maintaining a **the quantity requested by facilities** significantly reduce the amount of time taken by the national level to review and approve the orders.
 
