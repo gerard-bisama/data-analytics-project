@@ -1,4 +1,4 @@
-# Data Analytics Projects – PMalaria Supply Chain Data Analysis Project
+# Data Analytics Projects – Malaria Supply Chain Data Analysis Project
 
 This repository contains data analytics and machine learning projects focused on improving **supply chain decision-making for health commodities**.
 

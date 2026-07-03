@@ -75,7 +75,9 @@ The ACT group further revealed that:
 - National Hospitals exhibited a different pattern, although conclusions remain limited due to the very small sample size.
 
 Histogram confirmed that most allocation events clustered around zero, while relatively few observations generated the long positive tail extending to nearly 20,000 units.
+
 ![histogram of allocation gap - ACT product group](../images/Allocation_gap_ACTproducts.png)
+
 Similar distributional patterns were observed across the PYRA, ART, SP and PREV groups, suggesting that the allocation behavior identified within ACT products is representative of the broader malaria commodity supply chain
 
 #### 3.5 Demand and Allocation Profiling
