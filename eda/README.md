@@ -14,6 +14,8 @@ The EDA are organized by project to properly meet every project objective. Thus,
 
 [EDA_Allocation Hypothesis Testing](eda_test_qty.ipynb)
 It focuses on paired variables, allocation gaps, distributional assumptions, and preparation for paired tests.
+Here is the exploratory data analysis worklflow for the Hypothesis Testing.
+![](../images/EDA_HypoTesting_qtyreqvsapp.png)
 
 ### Executive Summary overview
 

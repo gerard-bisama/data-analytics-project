@@ -103,7 +103,7 @@ There **is a significant difference** between the quantities requested by facili
 ➡️ See full project:  
 [approval_quantity_test](approval_quantity_test/README.md)
 
-# Project 2 – Order Quantity Prediction
+# Project 2 – Quantity to order Prediction
 
 📁 Directory: **order_prediction/**
 
@@ -190,6 +190,7 @@ xx columns
 
 # Technologies Used
 
+- SQL
 - Python
 - Pandas
 - NumPy

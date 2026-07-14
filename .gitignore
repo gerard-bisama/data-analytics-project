@@ -11,3 +11,9 @@ node_modules/
 
 # IDE
 .vscode/
+
+# Data
+data_archive/
+#Code
+personal_code/
+.ipynb_checkpoints/
