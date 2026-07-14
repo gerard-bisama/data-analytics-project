@@ -1,8 +1,9 @@
-# Quantities Requested vs Approved Quantity Analysis
+# Requested vs Approved Quantity Analysis
 
 ## Overview
 
 This project investigates whether the **the quantities of malaria commodities requested by health facilities differ significantly from the quantities approved by the national program**.
+
 ➡️ See full analysis details on notebook file:  
 [Hypothesis testing](hypo_testing_qty_reqvsapp.ipynb)
 
