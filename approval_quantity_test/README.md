@@ -3,6 +3,8 @@
 ## Overview
 
 This project investigates whether the **the quantities of malaria commodities requested by health facilities differ significantly from the quantities approved by the national program**.
+➡️ See full analysis details on notebook file:  
+[Hypothesis testing](hypo_testing_qty_reqvsapp.ipynb)
 
 The analysis helps to determine whether the approval process systematically adjusts facility requests. Beyond assessing the overall allocation process, the analysis also examined whether allocation behavior varies across malaria product groups and facility types, thereby providing operational insights into the consistency of national allocation practices.
 
