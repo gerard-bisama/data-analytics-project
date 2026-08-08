@@ -25,3 +25,15 @@ The EDA focused on understanding the statistical characteristics of the key stud
 Details of the Executive summary can be found on the link [Details Qty requested vs Qty approved ](README_AllocTesting.md)
 
 ---
+
+## EDA for Order prediction
+
+[EDA_Allocation Hypothesis Testing](eda_order_prediction.ipynb)
+It focuses on paired variables, allocation gaps, distributional assumptions, and preparation for paired tests.
+
+### Executive Summary overview
+
+to prepare an analytical dataset for the development of an Order Quantity Prediction Model for malaria commodities.
+Unlike the previous EDA, which focused on determining whether quantities requested by health facilities differ from quantities approved at the central level, this analysis focuses on identifying and engineering the variables that can best explain quantity_approved.
+
+Details of the Executive summary can be found on the link [Details order prediction ](README_OrderPred.md)
