@@ -109,15 +109,17 @@ There **is a significant difference** between the quantities requested by facili
 
 ## Objective
 
-The objective of this project is to **build a predictive model that estimates the quantity of health products facilities should order**, based on historical consumption data.
+The objective of this project is to **develop and evaluate predictive models** for estimating malaria commodity order quantities using routine logistics and inventory data.
 
-Accurate order predictions help reduce:
+Accurate and reliable prediction of order quantities can support supply-chain operations by helping to:
 
-- stock-outs
-- overstocking
-- emergency orders
-- Reduce the time in orders approval
-  It provides also clues to use by supply chain analysis to detect potential non regular orders.
+- reduce the risk of stock-outs and overstocking
+- reduce the need for emergency orders
+- support faster and more evidence-based order review and approval
+- identify potentially unusual or irregular order quantities
+- provide supply-chain analysts with a quantitative decision-support tool for commodity planning
+
+The purpose is therefore not simply to build a machine-learning model, but to systematically determine which predictive approach best represents the relationship between routine logistics information and commodity allocation decisions, progressing from a transparent statistical baseline toward more flexible machine-learning models where justified by the data
 
 ➡️ See full project:  
 [order_prediction](order_prediction/README.md)
