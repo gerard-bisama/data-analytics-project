@@ -73,6 +73,11 @@ The MAE indicates an average absolute prediction error of approximately 1,017 un
 The test R² of approximately 15.3% is close to the training R² of 14.2%. Similarly, MAE remains almost unchanged between training and test observations.
 The similarity between training and test performance indicates no substantial evidence of overfitting.
 
+### Model coefficients
+
+- For the continuous predictors, consumption-related variables dominate. quantity_dispensed has the strongest positive coefficient, followed by AMC, while stock_in_hand provides the strongest negative association. This suggests that the model associates higher consumption with larger allocations and higher remaining inventory with smaller allocations.
+- For the categorical predictors, stock_status clearly produces the largest differences relative to its reference category. Critical (+905.67), Stockout (+516.24), and Low (+444.51) are considerably larger than the coefficients associated with product group, facility type, geography, or reporting month.
+
 ### Residual Diagnostics
 
 1. Residual Normality
@@ -106,6 +111,11 @@ Despite its relatively low predictive performance, the MLR model plays an import
 Rather than being considered an unsuccessful model, it establishes an interpretable reference model against which more advanced algorithms can be evaluated. Its results provide a quantitative baseline:
 
 **Baseline MLR: Test R² = 0.153, MAE ≈ 1,020 units, RMSE ≈ 1,883 units.**
+
+- For the continuous predictors, consumption-related variables dominate. `quantity_dispensed` has the strongest positive coefficient, followed by `AMC`, while `stock_in_hand` provides the strongest negative association. This suggests that the model associates higher consumption with larger allocations and higher remaining inventory with smaller allocations.
+- For the categorical predictors, stock_status clearly produces the largest differences relative to its reference category. Critical, Stockout , and Low stock level are considerably larger than the coefficients associated with product group, facility type, geography, or reporting month.
+
+As the model explains only approximately 14–15% of the variability in approved quantities. The coefficients therefore provide an interpretable description of the linear relationships captured by the MLR baseline, while the relatively low predictive performance supports evaluating more flexible Decision
 
 The next models should therefore be evaluated using the same test observations and the same core performance metrics. This will allow improvements to be attributed to the modeling approach rather than differences in evaluation data.
 
