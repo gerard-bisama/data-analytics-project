@@ -7,6 +7,7 @@ This project focuses on building a **model capable of predicting the quantity of
 Rather than directly applying a complex machine-learning algorithm, the project follows a progressive modeling approach, starting with Multiple Linear Regression (MLR) as an interpretable baseline model and subsequently moving toward more advanced machine-learning approaches, including Decision Tree and Random Forest Regression
 
 This approach makes it possible to determine whether increasingly flexible models provide meaningful improvements in predictive performance by capturing non-linear relationships, interactions, and threshold effects that may not be adequately represented by a linear model.
+
 ![ML Analysis framework](../images/ML_Analysis_Framework.png)
 
 Accurate and reliable prediction of order quantities can support supply-chain operations by helping to:
@@ -30,3 +31,15 @@ The analysis uses MLR as an interpretable baseline model to assess the combined 
 Details of the Executive summary can be found on the link [Multiple Linear Regression Predictive Model ](README_MLR_model.md)
 
 ---
+
+## Ordered Quantity Prediction using Decision Tree and Random Forest Regression
+
+[Decision Tree and Random Forest based model for order prediction](decision_tree_model.ipynb)
+
+Following the Multiple Linear Regression (MLR) baseline model, Decision Tree and Random Forest Regression were developed to assess whether non-linear relationships, interactions, and threshold effects among logistics predictors could improve the prediction of malaria commodity quantities approved by the central supply chain.
+
+### Executive Summary overview
+
+This analysis represents the advanced machine-learning stage of the order prediction project. Decision Tree Regression was first used to identify non-linear and threshold-based relationships between approved quantities and inventory and consumption characteristics. Random Forest Regression was subsequently developed to determine whether combining multiple trees could improve predictive accuracy and generalization. Both models were evaluated against the **MLR baseline using the same test dataset and the same performance metrics: R², MAE, and RMSE**. The analysis also compares predictor importance across the tree-based models to identify the logistics factors providing the strongest predictive information.
+
+Details of the analysis can be found in the [Decision Tree and Random Forest Predictive Model Executive Summary](README_DT_RF_model.md).
