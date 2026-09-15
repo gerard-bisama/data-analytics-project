@@ -15,11 +15,14 @@ from src.api.model_loader import (
 )
 
 from src.api.schemas import (
+    BatchPredictionItemDashboard,
+    BatchPredictionResponseDashboard,
     PredictionRequest,
     PredictionResponse,
     BatchPredictionRequest,
     BatchPredictionResponse,
-    BatchPredictionItem
+    BatchPredictionItem,
+    BatchPredictionRequestDashboard
 )
 import pandas as pd
 
@@ -86,6 +89,7 @@ def predict(
 def predict_batch(
     request: BatchPredictionRequest
 ):
+
     start = time.perf_counter()
     count = len(request.records)
     logger.info(
@@ -145,6 +149,91 @@ def predict_batch(
             )
 
         return BatchPredictionResponse(
+            count=len(results),
+            predictions=results
+        )
+    except Exception:
+        logger.exception(
+            "Batch prediction failed for %s records",
+            count
+        )
+        raise
+
+@app.post(
+    "/predict/batch_dashboard",
+    response_model=BatchPredictionResponseDashboard
+)
+def predict_batch_dashboard(
+    request: BatchPredictionRequestDashboard
+):
+
+    start = time.perf_counter()
+    count = len(request.records)
+    logger.info(
+        "Batch prediction started: %s records",
+        count
+    )
+    if count == 0:
+        raise HTTPException(
+            status_code=400,
+            detail="No records provided."
+        )
+
+    if count > MAX_BATCH_SIZE:
+        raise HTTPException(
+            status_code=413,
+            detail=(
+                f"Maximum batch size is "
+                f"{MAX_BATCH_SIZE} records."
+            )
+        )
+    try:
+        #Stage 1
+        records = [
+            record.model_dump()
+            for record in request.records
+        ]
+        logger.info(
+                "Stage 1 complete: records converted"
+            )
+        #Stage 2
+        df = pd.DataFrame(records)
+
+        record_ids = df["record_id"].copy()
+
+        model_input = df.drop(
+            columns=["record_id"]
+)
+
+        input_data = model_input
+        logger.info(
+                "Stage 2 complete: DataFrame shape=%s",
+                input_data.shape
+            )
+        # Stage 3
+        predict_start = time.perf_counter()
+
+        predictions = model.predict(input_data)
+        logger.info(
+                "Stage 3 complete: model.predict() "
+                "returned %s predictions in %.3f sec",
+                len(predictions),
+                time.perf_counter() - predict_start
+            )
+        # Stage 4
+        results = [
+            BatchPredictionItemDashboard(
+                index=record_id,
+                predicted_quantity_approved=float(pred)
+            )
+            for record_id, pred
+            in zip(record_ids, predictions)
+        ]
+        logger.info(
+                "Stage 4 complete: response created"
+            )
+
+        return BatchPredictionResponseDashboard(
             count=len(results),
             predictions=results
         )
