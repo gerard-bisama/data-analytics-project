@@ -1,0 +1,7 @@
+DB_HOST=IP
+DB_PORT=PORT
+DB_NAME=DB
+DB_USER=user
+DB_PASSWORD=password
+MLFLOW_TRACKING_URI=http://host.docker.internal:5000
+MODEL_URI=models:/m-cefb647d09244448b6a225ac2ea16d01

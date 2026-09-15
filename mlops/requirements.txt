@@ -7,3 +7,6 @@ python-dotenv
 joblib
 pytest
 mlflow
+fastapi
+uvicorn
+cloudpickle
