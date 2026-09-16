@@ -41,6 +41,7 @@ data_analytic_project/
 ├── data_extraction/
 |
 ├── order_prediction/
+├── mlops/
 │
 ├── max_stock_test/
 ```
@@ -125,8 +126,19 @@ The purpose is therefore not simply to build a machine-learning model, but to sy
 [order_prediction](order_prediction/README.md)
 
 ---
+# Project 3 – MLOps Deployment of the Malaria Order Prediction Model
 
-# Project 3 – Maximum Stock Level Hypothesis Test
+📁 Directory: **mlops/**
+
+## Objective
+This project extends **Project 2 -- Quantity to Order Prediction** by moving the trained malaria commodity order-prediction model from the analytical environment into a reproducible inference service.
+The MLOps implementation uses MLflows, FastAPI and Docker to respectively manage model pipeline, provide REST interface service and packing the reference service for easy deployment in production environment.
+
+➡️ See full project:  
+[MLOps](mlops/README.md)
+
+---
+# Project 4 – Maximum Stock Level Hypothesis Test
 
 📁 Directory: **max_stock_test/**
 

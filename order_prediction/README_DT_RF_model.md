@@ -35,6 +35,7 @@ The machine-learning modeling process consisted of:
 ### Initial Decision Tree
 
 The unrestricted Decision Tree produced poor predictive performance:
+
 | Metric | Initial Decision Tree |
 |---------|-----------------------|
 | R² |-0.776 |
@@ -51,8 +52,8 @@ However, visualization of the upper tree levels revealed potentially important o
 months_of_stock was selected as the root predictor, with an initial threshold of approximately:
 
 The threshold of 3.05 months separated observations into substantially different average approved quantities:
-| Stock coverage | Observations | Average quantity
-approved|
+
+| Stock coverage | Observations | Average quantity approved|
 |----------------|----------------|----------------|
 | MoS ≤ 3.05 | 2,233| 1,632.66|
 | MoS > 3.05 | 4,551 | 477.57|
@@ -60,10 +61,11 @@ approved|
 Observations with approximately three months of stock or less therefore received substantially larger approved quantities on average than observations with higher stock coverage.
 
 Within the lower-MoS branch, AMC provided another important separation:
+
 |Consumption level | Observations |Average quantity approved|
-|----------------|----------------|----------------|
-|AMC ≤ 883 | 1,948| 1,360.65|
-|AMC > 883 | 285 | 3,491.94|
+|------------------|--------------|-------------------------|
+| AMC ≤ 883 | 1,948 | 1,360.65 |
+| AMC > 883 | 285 | 3,491.94 |
 
 This indicates an interaction between stock coverage and consumption: among observations already characterized by relatively low stock coverage, those with very high average monthly consumption were associated with substantially larger approved quantities.
 
@@ -122,6 +124,7 @@ Although training performance remains better than test performance, the differen
 ## Final Model Comparison
 
 The same test observations were used to compare the three modeling approaches.
+
 | Model | Test R² | Test MAE | Test RMSE|
 |-------|-------|-------|-------|-------|
 |Multiple Linear Regression| 0.153| 1,019.58| 1,883.14|
