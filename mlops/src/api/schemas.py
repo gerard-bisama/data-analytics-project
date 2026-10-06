@@ -1,5 +1,5 @@
 from typing import List
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 class PredictionRequest(BaseModel):
 
@@ -66,6 +66,8 @@ class PredictionRequestDashboard(BaseModel):
 
     zone: str
 
+
+
 class PredictionResponse(BaseModel):
 
     predicted_quantity_approved: float
@@ -80,6 +82,42 @@ class BatchPredictionItem(BaseModel):
     index: int
     predicted_quantity_approved: float
 
+class BatchPredictionItemInterpretation(BaseModel):
+    index: str
+    product_group: str | None = None
+    facility_type: str | None = None
+    reporting_month : str | None = None
+    zone_type: str | None = None
+    High_Transmission_Preparation: str
+    stock_status: str | None = None
+    quantity_dispensed: float 
+    total_losses_and_adjustments: float
+    stock_in_hand: float
+    months_of_stock: float
+    amc: float
+    predicted_ordered_quantity: float
+    @field_validator(
+        "facility_type",
+        mode="before")
+    @classmethod
+    def normalize_facility_type (cls, value):
+        # Python None
+        #return value
+        #if value is None:
+        #    return None 
+        
+        # Empty strings or textual NaN
+        if isinstance(value, str):
+            value = value.strip()
+
+            if value == "":
+                return None
+
+            if value.lower() in {"nan", "none", "null"}:
+                return None
+            else:
+                return value
+
 class BatchPredictionItemDashboard(BaseModel):
     index: str
     predicted_quantity_approved: float
@@ -91,3 +129,7 @@ class BatchPredictionResponse(BaseModel):
 class BatchPredictionResponseDashboard(BaseModel):
     count: int
     predictions: List[BatchPredictionItemDashboard]
+
+class BatchPredictionResponseInterpretation(BaseModel):
+    count: int
+    predictions: List[BatchPredictionItemInterpretation]

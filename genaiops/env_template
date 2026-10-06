@@ -1,0 +1,12 @@
+# Hugging Face authentication
+HF_TOKEN=your_huggingface_token
+
+# Hugging Face model
+HF_MODEL_ID=<model_id>
+
+# Provider selection
+HF_PROVIDER=auto
+
+# Generation configuration
+HF_MAX_TOKENS=500
+HF_TEMPERATURE=0.1
