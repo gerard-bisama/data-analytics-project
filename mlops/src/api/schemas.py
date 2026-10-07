@@ -117,6 +117,25 @@ class BatchPredictionItemInterpretation(BaseModel):
                 return None
             else:
                 return value
+class FeatureEngineeringRecord(BaseModel):
+    record_id: str
+
+    product_primaryname: str
+    processing_periods_name: str
+    facility_type_name: str | None = None
+
+    beginningbalance: float | None = None
+    quantityreceived: float | None = None
+    quantitydispensed: float | None = None
+    stockinhand: float | None = None
+    totallossesandadjustments: float | None = None
+
+    amc: float | None = None
+    zone: str
+    quantityapproved: float | None = None
+
+class FeatureEngineeringRequest(BaseModel):
+    records: list[FeatureEngineeringRecord]
 
 class BatchPredictionItemDashboard(BaseModel):
     index: str

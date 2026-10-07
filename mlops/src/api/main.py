@@ -14,6 +14,8 @@ from src.api.model_loader import (
     load_model,
 )
 
+from src.features.engineering import SupplyChainFeatureEngineer
+from src.data.cleaning import clean_training_data
 from src.api.schemas import (
     BatchPredictionItemDashboard,
     BatchPredictionItemInterpretation,
@@ -24,7 +26,8 @@ from src.api.schemas import (
     BatchPredictionRequest,
     BatchPredictionResponse,
     BatchPredictionItem,
-    BatchPredictionRequestDashboard
+    BatchPredictionRequestDashboard,
+    FeatureEngineeringRequest
 )
 import pandas as pd
 
@@ -365,4 +368,251 @@ def predict_batch_for_interpretation(
             "Batch prediction interpretation failed for %s records",
             count
         )
- 
+
+@app.post(
+    "/predict/rawbatch_for_interpretation",
+    response_model=BatchPredictionResponseInterpretation
+)
+def predict_rawbatch_for_interpretation(
+    request: FeatureEngineeringRequest
+):
+
+    start = time.perf_counter()
+    count = len(request.records)
+    logger.info(
+        "Batch prediction started: %s records",
+        count
+    )
+    if count == 0:
+        raise HTTPException(
+            status_code=400,
+            detail="No records provided."
+        )
+
+    if count > MAX_BATCH_SIZE:
+        raise HTTPException(
+            status_code=413,
+            detail=(
+                f"Maximum batch size is "
+                f"{MAX_BATCH_SIZE} records."
+            )
+        )
+    try:
+        #Stage 1
+        records = [
+            record.model_dump()
+            for record in request.records
+        ]
+        logger.info(
+                "Stage 1 complete: records converted"
+            )
+        #Stage 2
+        ####################### Clean the columns names first #######
+        
+        
+        df_raw = pd.DataFrame(records)
+        df_cleaned = clean_training_data(df_raw)
+
+        record_ids = df_cleaned["record_id"].copy()
+
+        model_input = df_cleaned.drop(
+            columns=["record_id","quantity_approved"]
+        )
+
+        input_data = model_input
+        logger.info(
+                "Stage 2 complete: DataFrame shape=%s",
+                input_data.shape
+            )
+        # Stage 3
+        predict_start = time.perf_counter()
+
+        predictions = model.predict(input_data)
+        # Build a combined list of data and associated input
+        feature_engineered = model.named_steps["feature_engineering"]
+        feature_transformed = feature_engineered.transform(input_data)
+        #print('==============================')
+        #print(feature_transformed)
+        #print('==============================')
+        additional_data = pd.DataFrame(
+            zip(record_ids, predictions),
+            columns=["id", "predicted_ordered_quantity"]
+        )
+        df_result = pd.concat(
+            [
+                additional_data,
+                feature_transformed.reset_index(drop=True)
+            ],
+            axis=1
+        )
+        ##=======
+
+        logger.info(
+                "Stage 3 complete: model.predict() "
+                "returned %s predictions in %.3f sec",
+                len(predictions),
+                time.perf_counter() - predict_start
+            )
+        # Stage 4
+        results = []
+        for _, row in df_result.iterrows():
+            results.append(
+                BatchPredictionItemInterpretation(
+                index= row['id'],
+                product_group= row['product_group'],
+                facility_type = row['facility_type'],
+                reporting_month = row['reporting_month'],
+                zone_type = row['zone_type'],
+                High_Transmission_Preparation = row['High_Transmission_Preparation'],
+                stock_status = row['stock_status'],
+                quantity_dispensed = float (row['quantity_dispensed']),
+                total_losses_and_adjustments= float(row['total_losses_and_adjustments']),
+                stock_in_hand = float(row['total_losses_and_adjustments']),
+                months_of_stock= float(row['months_of_stock']),
+                amc= float(row['amc']),
+                predicted_ordered_quantity = round(float(row['predicted_ordered_quantity']),2)
+                )
+            )
+        
+        #print(results)
+        logger.info(
+                "Stage 4 complete: response created"
+            )
+
+        return BatchPredictionResponseInterpretation(
+            count=len(results),
+            predictions=results
+        )
+    except Exception:
+        logger.exception(
+            "Batch prediction interpretation failed for %s records",
+            count
+        )
+
+
+
+@app.post("/feature_engineering")
+def feature_engineering(
+    request: FeatureEngineeringRequest
+):
+    """
+    Apply the existing MLOps supply-chain feature engineering
+    transformations without running the prediction model.
+    """
+
+    try:
+
+        # ------------------------------------------
+        # 1. Convert Pydantic records to dictionaries
+        # ------------------------------------------
+
+        records = [
+            record.model_dump()
+            for record in request.records
+        ]
+
+        # ------------------------------------------
+        # 2. Convert to pandas DataFrame
+        # ------------------------------------------
+
+        df_raw = pd.DataFrame(
+            records
+        )
+        
+
+        if df_raw.empty:
+            raise HTTPException(
+                status_code=400,
+                detail="No records were provided."
+            )
+
+        df_cleaned = clean_training_data(df_raw)
+        #print(df_cleaned)
+
+        # ------------------------------------------
+        # 3. Apply existing feature engineering
+        # ------------------------------------------
+
+        feature_engineer = (
+            SupplyChainFeatureEngineer()
+        )
+        #feature_engineer.fit(df_cleaned)
+        df_engineered = (
+            feature_engineer.transform(
+                df_cleaned.copy()
+            )
+        )
+
+        # ------------------------------------------
+        # 4. Replace NaN with JSON-compatible None
+        # ------------------------------------------
+
+        df_engineered = (
+            df_engineered
+            .astype(object)
+            .where(
+                pd.notnull(df_engineered),
+                None
+            )
+        )
+
+        # ------------------------------------------
+        # 5. Convert DataFrame to JSON-compatible list
+        # ------------------------------------------
+        """
+        engineered_records = (
+            df_engineered
+            .to_dict(orient="records")
+        )
+        """
+        # ==========================================
+        # 5. Prepare records for prediction and interpretation
+        # ==========================================
+        record_preditions=[]
+        for _, row in df_engineered.iterrows():
+            record_preditions.append(
+                BatchPredictionItemDashboard(
+                    record_id= row['id'],
+                    product_primary_name= row['product_group'],
+                    facility_type = row['facility_type'],
+                    reporting_month = row['reporting_month'],
+                    zone_type = row['zone_type'],
+                    High_Transmission_Preparation = row['High_Transmission_Preparation'],
+                    stock_status = row['stock_status'],
+                    quantity_dispensed = float (row['quantity_dispensed']),
+                    total_losses_and_adjustments= float(row['total_losses_and_adjustments']),
+                    stock_in_hand = float(row['total_losses_and_adjustments']),
+                    months_of_stock= float(row['months_of_stock']),
+                    amc= float(row['amc']),
+                    predicted_ordered_quantity = round(float(row['predicted_ordered_quantity']),2)
+                )
+            )
+
+        # ------------------------------------------
+        # 6. Return result
+        # ------------------------------------------
+
+        return {
+            "count": len(engineered_records),
+            "records": engineered_records
+        }
+
+    except HTTPException as exc:
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                "Feature engineering failed: "
+                f"{str(exc)}"
+            )
+        )
+
+
+    except Exception as exc:
+
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Feature engineering failed: "
+                f"{str(exc)}"
+            )
+        )
