@@ -458,7 +458,7 @@ def predict_rawbatch_for_interpretation(
         for _, row in df_result.iterrows():
             results.append(
                 BatchPredictionItemInterpretation(
-                index= row['id'],
+                record_id= row['id'],
                 product_group= row['product_group'],
                 facility_type = row['facility_type'],
                 reporting_month = row['reporting_month'],

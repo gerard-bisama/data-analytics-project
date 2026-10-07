@@ -83,7 +83,7 @@ class BatchPredictionItem(BaseModel):
     predicted_quantity_approved: float
 
 class BatchPredictionItemInterpretation(BaseModel):
-    index: str
+    record_id: str
     product_group: str | None = None
     facility_type: str | None = None
     reporting_month : str | None = None

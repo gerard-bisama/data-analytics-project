@@ -19,7 +19,9 @@ CSV_FILE = "../mlops/data/raw/requisition_dashboard.csv"
 MLOPS_API_GETDATA_FORINTERPRETATION_URL = (
     "http://localhost:8000/predict/rawbatch_for_interpretation"
 )
-
+GENAIOPS_INTERPRET_URL = (
+    "http://localhost:8001/interpret"
+)
 
 df_raw = pd.read_csv(CSV_FILE)
 
@@ -86,36 +88,69 @@ df_engineered = pd.DataFrame(
     engineered_predicted_records
 )
 
-# ---------------------------------
-# Step 2: Deterministic analysis
-# ---------------------------------
+# ==========================================
+# GenAIOps API
+# ==========================================
 
-summary = summarize_prediction_dataframe(df_engineered)
 
-print("\n=== DATA SUMMARY ===")
-#print(summary)
-
-# ---------------------------------
-# Step 3: Controlled prompt
-# ---------------------------------
-
-messages = build_interpretation_messages(
-    summary=summary,
-    user_prompt=(
+interpretation_payload = {
+    "records": engineered_predicted_records,
+    "prompt": (
         "Provide a concise management interpretation "
         "of the main supply situation in this dataset."
     )
+}
+
+
+print(
+    "\nSending predictions to GenAIOps..."
 )
 
-# ---------------------------------
-# Step 4: LLM interpretation
-# ---------------------------------
 
-print("\nSending analytical context to Hugging Face...")
-
-interpretation = generate_interpretation(
-    messages
+genai_response = requests.post(
+    GENAIOPS_INTERPRET_URL,
+    json=interpretation_payload,
+    timeout=180
 )
 
-print("\n=== GENAI INTERPRETATION ===")
-print(interpretation)
+
+print(
+    "GenAIOps HTTP status:",
+    genai_response.status_code
+)
+
+
+if genai_response.status_code != 200:
+
+    print(
+        "\n=== GENAIOPS ERROR ==="
+    )
+
+    print(
+        genai_response.text
+    )
+
+    raise RuntimeError(
+        "GenAIOps interpretation "
+        "request failed."
+    )
+
+
+genai_result = (
+    genai_response.json()
+)
+
+
+print(
+    "\n=== GENAI INTERPRETATION ==="
+)
+
+print(
+    genai_result["interpretation"]
+)
+
+
+print(
+    "\nRecords analyzed:",
+    genai_result["records_analyzed"]
+)
