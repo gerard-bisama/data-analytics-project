@@ -3,6 +3,9 @@ from fastapi import HTTPException
 import logging
 import time
 import logging
+import os
+
+from src.data.ingestion import load_data
 
 logging.basicConfig(
     level=logging.INFO,
@@ -27,7 +30,8 @@ from src.api.schemas import (
     BatchPredictionResponse,
     BatchPredictionItem,
     BatchPredictionRequestDashboard,
-    FeatureEngineeringRequest
+    FeatureEngineeringRequest,
+    SourcePredictionRequest
 )
 import pandas as pd
 
@@ -57,6 +61,66 @@ def predict_test(
 
     return request.model_dump()
 
+@app.post("/predict/data_ingestion")
+def data_ingestion(
+    request: SourcePredictionRequest
+):
+    try:
+        if request.source == "csv":
+            df_raw = load_data(
+                source="csv",
+                csv_path=os.getenv(
+                    "DATA_CSV_PATH",
+                    "data/raw/requisition_dashboard.csv"
+                )
+            )
+
+        elif request.source == "postgres":
+            query = os.getenv("DATA_POSTGRES_QUERY")
+
+            if not query:
+                raise ValueError(
+                    "DATA_POSTGRES_QUERY is not configured."
+                )
+
+            df_raw = load_data(
+                source="postgres",
+                query=query
+            )
+
+        if df_raw.empty:
+            raise ValueError(
+                "The selected data source returned no records."
+            )
+
+        # Reuse the existing MLOps prediction workflow here.
+        # It must return the same response contract:
+        #
+        # {
+        #     "predictions": [...]
+        # }
+        df_raw=df_raw[0:1000]
+        records = (
+            df_raw.astype(object)
+            .where(pd.notnull(df_raw), None)
+            .to_dict(orient="records")
+        )
+
+        return records
+
+
+    except (ValueError, FileNotFoundError) as exc:
+        raise HTTPException(
+            status_code=400,
+            detail=str(exc)
+        )
+
+    except Exception:
+        # Log the exception on the server.
+        raise HTTPException(
+            status_code=500,
+            detail="Source-based prediction failed."
+        )
 
 @app.post(
     "/predict",

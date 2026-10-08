@@ -1,5 +1,6 @@
 from typing import List
 from pydantic import BaseModel, Field, field_validator
+from typing import Literal
 
 class PredictionRequest(BaseModel):
 
@@ -140,6 +141,9 @@ class FeatureEngineeringRequest(BaseModel):
 class BatchPredictionItemDashboard(BaseModel):
     index: str
     predicted_quantity_approved: float
+
+class SourcePredictionRequest(BaseModel):
+    source: Literal["csv", "postgres"]
 
 class BatchPredictionResponse(BaseModel):
     count: int
