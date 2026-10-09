@@ -138,7 +138,19 @@ The MLOps implementation uses MLflows, FastAPI and Docker to respectively manage
 [MLOps](mlops/README.md)
 
 ---
-# Project 4 – Maximum Stock Level Hypothesis Test
+# Project 4 — GenAIOps Interpretation of Malaria Supply Chain Predictions
+
+📁 **Directory:** `genaiops/`
+
+## Objective
+
+This project extends **Project 3 — MLOps Deployment of the Malaria Order Prediction Model** by adding a separately deployable generative-AI interpretation service. The existing MLOps API ingests CSV/PostgreSQL logistics data, performs feature engineering and ML inference, and returns prediction records. GenAIOps transforms those records into a deterministic analytical summary, constructs a controlled prompt, and requests a management-oriented interpretation from Hugging Face.
+
+➡️ See full project:  
+[MLOps](genaiops/README.md)
+
+---
+# Project 5 – Maximum Stock Level Hypothesis Test
 
 📁 Directory: **max_stock_test/**
 
