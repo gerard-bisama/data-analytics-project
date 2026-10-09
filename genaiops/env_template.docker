@@ -1,0 +1,16 @@
+# Hugging Face authentication
+HF_TOKEN=<YOUR_NEW_HF_TOKEN>
+
+# Hugging Face model
+HF_MODEL_ID=openai/gpt-oss-20b
+
+# Provider selection
+HF_PROVIDER=auto
+
+# Generation configuration
+HF_MAX_TOKENS=1200
+HF_TEMPERATURE=0.1
+
+# Application configuration
+LOG_LEVEL=INFO
+MLOPS_API_URL=http://mlops:8000

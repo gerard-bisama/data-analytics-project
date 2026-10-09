@@ -1,0 +1,76 @@
+
+services:
+
+  # ==========================================
+  # MLOps FastAPI Service
+  # ==========================================
+  mlops:
+    image: malaria-order-api:2.0
+    container_name: malaria-api
+
+    restart: unless-stopped
+
+    env_file:
+      - ./mlops/.env.docker
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - ./mlops/data/raw:/app/data/raw:ro
+
+    networks:
+      - analytics-net
+
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=5)"
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # ==========================================
+  # GenAIOps FastAPI Service
+  # ==========================================
+  genaiops:
+    build:
+      context: ./genaiops
+      dockerfile: Dockerfile
+
+    image: malaria-genaiops:1.0
+    container_name: malaria-genaiops
+
+    restart: unless-stopped
+
+    env_file:
+      - ./genaiops/.env.docker
+
+    ports:
+      - "127.0.0.1:8001:8001"
+
+    networks:
+      - analytics-net
+
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/health', timeout=5)"
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+# ==========================================
+# Internal Docker Network
+# ==========================================
+networks:
+  analytics-net:
+    driver: bridge
