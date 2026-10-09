@@ -147,7 +147,7 @@ The MLOps implementation uses MLflows, FastAPI and Docker to respectively manage
 This project extends **Project 3 — MLOps Deployment of the Malaria Order Prediction Model** by adding a separately deployable generative-AI interpretation service. The existing MLOps API ingests CSV/PostgreSQL logistics data, performs feature engineering and ML inference, and returns prediction records. GenAIOps transforms those records into a deterministic analytical summary, constructs a controlled prompt, and requests a management-oriented interpretation from Hugging Face.
 
 ➡️ See full project:  
-[MLOps](genaiops/README.md)
+[Genaiops](genaiops/README.md)
 
 ---
 # Project 5 – Maximum Stock Level Hypothesis Test
