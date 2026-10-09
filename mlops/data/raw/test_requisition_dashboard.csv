@@ -1,0 +1,6 @@
+record_id,product_primaryname,processing_periods_name,facility_type_name,beginningbalance,quantityreceived,quantitydispensed,stockinhand,totallossesandadjustments,amc,quantityapproved,zone
+Req-001,PYRA-COMP,May 2025,HEALTH CENTER,290.0,22.0,10.0,980.0,313,2.0,1,DISTRICT25
+Req-002,PYRA-COMP,May 2025,HEALTH CENTER,3510.0,6.0,437.0,1426.0,246,151.0,2,DISTRICT28
+Req-003,ACT-GC,Nov 2025,HEALTH CENTER,125.0,,52.0,140.0,25,,1,DISTRICT1
+Req-004,PYRA-SAC,Dec 2024,HEALTH CENTER,1015.0,209.0,,533.0,408,,2,DISTRICT1
+Req-005,SP,Jan 2024,HEALTH CENTER,2805.0,,528.0,,42,448.0,1,DISTRICT13

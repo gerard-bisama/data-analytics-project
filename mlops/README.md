@@ -1,4 +1,4 @@
-# Project 4 -- MLOps Deployment of the Malaria Order Prediction Model
+# Project 3 -- MLOps Deployment of the Malaria Order Prediction Model
 
 📁 **Directory:** `mlops/`
 
